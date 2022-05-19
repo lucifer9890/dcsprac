@@ -1,0 +1,44 @@
+server===================
+
+package socket1a;
+
+import java.net.*;
+import java.io.*;
+
+public class server{
+	public static void main(String []a)
+	{
+		try {
+			ServerSocket ss= new ServerSocket(8080);
+			System.out.print("waiting for connection");
+			Socket s= ss.accept();
+			DataOutputStream dis= new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
+			dis.writeUTF("Hi Hitesh");
+			dis.close();
+			ss.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+client===================
+
+package socket1a;
+
+import java.net.*;
+import java.io.*;
+
+public class client{
+	public static void main(String []a)
+	{
+		try {
+			Socket s= new Socket("local host",8080);
+			DataInputStream dis= new DataInputStream(new BufferedInputStream(s.getInputStream()));
+			String text= dis.readUTF();
+			System.out.println("This is from client:"+text);
+			dis.close();
+			s.close();
+		}catch(Exception x) {}
+	}
+}
